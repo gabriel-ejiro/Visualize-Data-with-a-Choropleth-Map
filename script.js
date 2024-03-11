@@ -60,3 +60,81 @@ svg.selectAll(".county")
     .attr("data-fips", d => d.properties.fips)
     .attr("data-education", d => d.properties.education)
     .attr("d", d3.geoPath());
+
+// user story #7
+// Create county elements for each data point
+svg.selectAll(".county")
+    .data(countyData.features)
+    .enter()
+    .append("path")
+    .attr("class", "county")
+    .attr("data-fips", d => d.properties.fips)
+    .attr("data-education", d => d.properties.education)
+    .attr("d", d3.geoPath());
+
+// Check if the data-fips and data-education values match the sample data
+svg.selectAll(".county")
+    .each(function(d) {
+        const fips = d.properties.fips;
+        const education = d.properties.education;
+        // Compare fips and education with the sample data and log any mismatches
+        if (/* Check if fips and education match sample data */) {
+            console.log(`County with fips ${fips} has incorrect education value: ${education}`);
+        }
+    });
+
+// user 8 & 9
+// Create a legend
+const legend = svg.append("g")
+    .attr("id", "legend");
+
+// Define the legend colors
+const legendColors = ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072"]; // Adjust colors as needed
+
+// Create rectangles for each color in the legend
+legend.selectAll("rect")
+    .data(legendColors)
+    .enter()
+    .append("rect")
+    .attr("x", (d, i) => 20 + i * 50) // Adjust positioning as needed
+    .attr("y", 20) // Adjust positioning as needed
+    .attr("width", 40)
+    .attr("height", 20)
+    .style("fill", d => d);
+
+// Add text labels for each color in the legend
+legend.selectAll("text")
+    .data(legendColors)
+    .enter()
+    .append("text")
+    .attr("x", (d, i) => 30 + i * 50) 
+    .attr("y", 45) 
+    .text((d, i) => `Legend ${i+1}`); 
+
+// user story 10 & 11
+// Define the tooltip element
+const tooltip = d3.select("body")
+    .append("div")
+    .attr("id", "tooltip")
+    .style("opacity", 0);
+
+// Add mouseover and mouseout event listeners to the county elements
+svg.selectAll(".county")
+    .on("mouseover", (event, d) => {
+        // Show tooltip on mouseover
+        tooltip.transition()
+            .duration(200)
+            .style("opacity", 0.9);
+        tooltip.html(`Education: ${d.properties.education}`) // Display education data in tooltip
+            .style("left", (event.pageX + 10) + "px") // Position tooltip relative to mouse pointer
+            .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", () => {
+        // Hide tooltip on mouseout
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+    });
+
+
+
