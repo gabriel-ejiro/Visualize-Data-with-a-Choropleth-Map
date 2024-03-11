@@ -1,0 +1,38 @@
+/* Add your CSS styles for the choropleth map here */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+#title {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#description {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#choropleth {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.county {
+    stroke: #fff; /* Border color */
+    stroke-width: 0.5px; /* Border width */
+}
+
+.tooltip {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: 10px;
+    font-size: 14px;
+    z-index: 9999;
+}
